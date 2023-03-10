@@ -49,9 +49,16 @@ test('Admin should be in usernames', () => {
 
 // Working with async data
 test('User fetched name should be Leanne Graham', () =>{
-    expect.assertions(1); // used when working with async data
+    expect.assertions(1); // used when working with async data .... Without this line, the test will pass even if the promise is rejected (because the assertion is in the .then() block). With this line, the test will fail if the promise is rejected.
     return functions.fetchUser()
     .then(data => {
         expect(data.name).toEqual('Leanne Graham')
     })
+})
+
+// Async Await
+test('User fetched name should be Leanne Graham but async', async() =>{
+    expect.assertions(1);
+    const data = await functions.fetchUser();
+    expect(data.name).toEqual('Leanne Graham')
 })
